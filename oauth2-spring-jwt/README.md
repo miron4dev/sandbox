@@ -11,7 +11,8 @@ The application invokes Facebook OAuth2 Auth Server and generates JWT token to b
 - JJWT
 
 <h4>To Build and Run</h4>
-- Change application.yml
+
+- Change application.yml:
 
 ```
 facebook:
