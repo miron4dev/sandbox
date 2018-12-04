@@ -5,20 +5,17 @@ import java.util.List;
 
 public class Vertex {
 
-	private final List<Vertex> neighbours = new ArrayList<>();
 	private final String name;
 	private boolean visited;
+	private boolean beingVisited;
+	private final List<Vertex> neighbours = new ArrayList<>();
 
 	public Vertex(String name) {
 		this.name = name;
 	}
 
-	public void addNeighbour(Vertex vertex) {
-		neighbours.add(vertex);
-	}
-
-	public List<Vertex> getNeighbours() {
-		return neighbours;
+	public String getName() {
+		return name;
 	}
 
 	public boolean isVisited() {
@@ -29,8 +26,25 @@ public class Vertex {
 		this.visited = visited;
 	}
 
+	public boolean isBeingVisited() {
+		return beingVisited;
+	}
+
+	public void setBeingVisited(boolean beingVisited) {
+		this.beingVisited = beingVisited;
+	}
+
+	public void addNeighbour(Vertex vertex) {
+		neighbours.add(vertex);
+	}
+
+	public List<Vertex> getNeighbours() {
+		return neighbours;
+	}
+
 	@Override
 	public String toString() {
 		return name;
 	}
+
 }
