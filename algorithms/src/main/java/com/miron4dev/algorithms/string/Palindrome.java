@@ -7,7 +7,7 @@ package com.miron4dev.algorithms.string;
  */
 public class Palindrome {
 
-	private static final char[] charMap = new char[256];
+	private static final char[] charMap = new char[256]; // works only for ASCII
 
 	static {
 		for (int i = 0; i < 10; i++) {
