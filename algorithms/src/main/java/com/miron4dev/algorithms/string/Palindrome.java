@@ -29,19 +29,19 @@ public class Palindrome {
 			return true;
 		}
 
-		int i = 0;
-		int j = str.length() - 1;
+		int start = 0;
+		int end = str.length() - 1;
 		char[] chars = str.toCharArray();
 
-		while (i < j) {
-			char a = charMap[chars[i]];
-			char b = charMap[chars[j]];
+		while (start < end) {
+			char a = charMap[chars[start]];
+			char b = charMap[chars[end]];
 
 			if (a == 0) {
-				i++;
+				start++;
 				continue;
 			} else if (b == 0) {
-				j--;
+				end--;
 				continue;
 			}
 
@@ -49,8 +49,8 @@ public class Palindrome {
 				return false;
 			}
 
-			i++;
-			j--;
+			start++;
+			end--;
 		}
 		return true;
 	}
