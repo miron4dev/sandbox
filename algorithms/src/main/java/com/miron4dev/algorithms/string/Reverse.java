@@ -22,4 +22,24 @@ public class Reverse {
 			chars[chars.length - i - 1] = temp;
 		}
 	}
+
+	public void recursionReverse() {
+		helper(0, chars.length - 1);
+	}
+
+	public String getString() {
+		return new String(chars);
+	}
+
+	private void helper(int start, int end) {
+		if (start >= end) {
+			return;
+		}
+
+		char temp = chars[start];
+		chars[start] = chars[end];
+		chars[end] = temp;
+
+		helper(++start, --end);
+	}
 }
