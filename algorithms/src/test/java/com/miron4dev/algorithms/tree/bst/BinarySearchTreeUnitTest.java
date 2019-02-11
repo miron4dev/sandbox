@@ -1,6 +1,7 @@
 package com.miron4dev.algorithms.tree.bst;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import org.junit.Test;
 
@@ -55,8 +56,6 @@ public class BinarySearchTreeUnitTest {
 
 		bst.delete(1);
 
-		System.out.println(bst.toString());
-
 		assertEquals(4, bst.size());
 		assertEquals("4 -> 8 -> 10 -> 14 -> ", bst.toString());
 	}
@@ -70,8 +69,6 @@ public class BinarySearchTreeUnitTest {
 		bst.insert(1);
 
 		bst.delete(4);
-
-		System.out.println(bst.toString());
 
 		assertEquals(3, bst.size());
 		assertEquals("1 -> 10 -> 14 -> ", bst.toString());
@@ -87,12 +84,9 @@ public class BinarySearchTreeUnitTest {
 
 		bst.delete(8);
 
-		System.out.println(bst.toString());
-
 		assertEquals(3, bst.size());
 		assertEquals("4 -> 10 -> 14 -> ", bst.toString());
 	}
-
 
 	@Test
 	public void deleteRoot() {
@@ -104,8 +98,6 @@ public class BinarySearchTreeUnitTest {
 		bst.insert(1);
 
 		bst.delete(10);
-
-		System.out.println(bst.toString());
 
 		assertEquals(4, bst.size());
 		assertEquals("1 -> 4 -> 8 -> 14 -> ", bst.toString());
@@ -121,6 +113,74 @@ public class BinarySearchTreeUnitTest {
 		bst.insert(1);
 
 		assertEquals("1 -> 4 -> 8 -> 10 -> 14 -> ", bst.toString());
+	}
+
+	@Test
+	public void testEquals() {
+		Tree<Integer> bst = new BinarySearchTree<>();
+		bst.insert(10);
+		bst.insert(4);
+		bst.insert(8);
+		bst.insert(14);
+		bst.insert(1);
+
+		Tree<Integer> bst2 = new BinarySearchTree<>();
+		bst2.insert(10);
+		bst2.insert(4);
+		bst2.insert(8);
+		bst2.insert(14);
+		bst2.insert(1);
+
+		assertEquals(bst2, bst);
+	}
+
+	@Test
+	public void testNotEqualsBecauseOfOrder() {
+		Tree<Integer> bst = new BinarySearchTree<>();
+		bst.insert(10);
+		bst.insert(4);
+		bst.insert(8);
+		bst.insert(14);
+		bst.insert(1);
+
+		Tree<Integer> bst2 = new BinarySearchTree<>();
+		bst2.insert(10);
+		bst2.insert(8);
+		bst2.insert(4);
+		bst2.insert(14);
+		bst2.insert(1);
+
+		assertNotEquals(bst2, bst);
+	}
+
+	@Test
+	public void testNotEqualsBecauseValues() {
+		Tree<Integer> bst = new BinarySearchTree<>();
+		bst.insert(10);
+		bst.insert(4);
+		bst.insert(8);
+		bst.insert(14);
+		bst.insert(1);
+
+		Tree<Integer> bst2 = new BinarySearchTree<>();
+		bst2.insert(10);
+		bst2.insert(4);
+		bst2.insert(8);
+		bst2.insert(14);
+
+		assertNotEquals(bst2, bst);
+	}
+
+	@Test
+	public void testHashCode() {
+		Tree<Integer> bst = new BinarySearchTree<>();
+		bst.insert(10);
+		bst.insert(4);
+		bst.insert(8);
+		bst.insert(14);
+		bst.insert(1);
+
+		assertEquals(-1633904680, bst.hashCode());
 	}
 
 }

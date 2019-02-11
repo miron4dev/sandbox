@@ -1,6 +1,6 @@
 package com.miron4dev.algorithms.tree.bst;
 
-public class BinaryNode<T> {
+public class BinaryNode<T extends Comparable<T>> {
 
 	private final T data;
 
@@ -46,4 +46,38 @@ public class BinaryNode<T> {
 		return data.toString();
 	}
 
+	@Override
+	public boolean equals(Object anotherNode) {
+		if (this == anotherNode)
+			return true;
+
+		if (anotherNode == null || getClass() != anotherNode.getClass()) {
+			return false;
+		}
+
+		return equals(this, (BinaryNode<T>) anotherNode);
+	}
+
+	@Override
+	public int hashCode() {
+		int result = 1;
+
+		result = 31 * result + (leftChild != null ? leftChild.hashCode() : 0);
+		result = 31 * result + (rightChild != null ? rightChild.hashCode() : 0);
+		result = 31 * result + data.hashCode();
+
+		return result;
+	}
+
+	private boolean equals(BinaryNode<T> node1, BinaryNode<T> node2) {
+		if (node1 == null || node2 == null) {
+			return node1 == node2;
+		}
+
+		if (node1.getData().compareTo(node2.getData()) != 0) {
+			return false;
+		}
+
+		return equals(node1.getLeftChild(), node2.getLeftChild()) && equals(node1.getRightChild(), node2.getRightChild());
+	}
 }

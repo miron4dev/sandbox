@@ -1,5 +1,6 @@
 package com.miron4dev.algorithms.tree.bst;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 
 import com.miron4dev.algorithms.tree.Tree;
@@ -129,5 +130,22 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 		}
 
 		return result.toString();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		BinarySearchTree<?> that = (BinarySearchTree<?>) o;
+		return Objects.equals(root, that.root);
+	}
+
+	@Override
+	public int hashCode() {
+		return root != null ? root.hashCode() : 0;
 	}
 }
