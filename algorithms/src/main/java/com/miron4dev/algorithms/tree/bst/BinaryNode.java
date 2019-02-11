@@ -41,6 +41,17 @@ public class BinaryNode<T extends Comparable<T>> {
 		return leftChild == null && rightChild == null;
 	}
 
+	public int size() {
+		int size = 1;
+		if (leftChild != null) {
+			size += leftChild.size();
+		}
+		if (rightChild != null) {
+			size += rightChild.size();
+		}
+		return size;
+	}
+
 	@Override
 	public String toString() {
 		return data.toString();

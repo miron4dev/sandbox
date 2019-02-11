@@ -32,18 +32,26 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 
 	@Override
 	public T getMax() {
-		if (root == null) {
-			return null;
-		}
-		return getPredecessor(root).getData();
+		return getMax(1);
+	}
+
+	@Override
+	public T getMax(int k) {
+		return getKthMaximum(root, k).getData();
 	}
 
 	@Override
 	public T getMin() {
+		return getMin(1);
+	}
+
+	@Override
+	public T getMin(int k) {
 		if (root == null) {
 			return null;
 		}
-		return getSuccessor(root).getData();
+
+		return getKthMinimum(root, k).getData();
 	}
 
 	@Override
@@ -93,7 +101,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 			} else if (node.getRightChild() == null) {
 				node = node.getLeftChild();
 			} else {
-				BinaryNode<T> predecessor = getPredecessor(node.getLeftChild());
+				BinaryNode<T> predecessor = getMostRightNode(node.getLeftChild());
 
 				BinaryNode<T> leftChild = deleteNode(predecessor.getData(), node.getLeftChild());
 				node = new BinaryNode<>(predecessor.getData(), leftChild, node.getRightChild());
@@ -103,18 +111,46 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 		return node;
 	}
 
-	private BinaryNode<T> getPredecessor(BinaryNode<T> node) {
+	private BinaryNode<T> getMostRightNode(BinaryNode<T> node) {
 		while (node.getRightChild() != null) {
 			node = node.getRightChild();
 		}
 		return node;
 	}
 
-	private BinaryNode<T> getSuccessor(BinaryNode<T> node) {
-		while (node.getLeftChild() != null) {
-			node = node.getLeftChild();
+	private BinaryNode<T> getKthMinimum(BinaryNode<T> node, int k) {
+		if (node == null) {
+			return null;
 		}
-		return node;
+		int n = 1; // root node
+		if (node.getLeftChild() != null) {
+			n += node.getLeftChild().size();
+		}
+
+		if (n == k) {
+			return node;
+		} else if (n > k) {
+			return getKthMinimum(node.getLeftChild(), k);
+		}
+		return getKthMinimum(node.getRightChild(), k - n);
+	}
+
+	private BinaryNode<T> getKthMaximum(BinaryNode<T> node, int k) {
+		if (node == null) {
+			return null;
+		}
+
+		int n = 1; // root node
+		if (node.getRightChild() != null) {
+			n += node.getRightChild().size();
+		}
+
+		if (n == k) {
+			return node;
+		} else if (n > k) {
+			return getKthMaximum(node.getRightChild(), k);
+		}
+		return getKthMaximum(node.getLeftChild(), k - n);
 	}
 
 	private String inOrderTraversal(BinaryNode<T> node) {
