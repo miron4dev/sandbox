@@ -3,7 +3,7 @@ package com.miron4dev.sandbox.jni;
 public class App {
 
     static {
-        System.loadLibrary("bridge");
+        System.loadLibrary("fibonacci");
     }
 
     public static void main(String[] args) {

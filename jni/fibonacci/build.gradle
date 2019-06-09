@@ -1,0 +1,58 @@
+apply plugin: 'c'
+
+println "Building on OS: " + System.properties['os.name']
+println "Using JDK: " + System.properties['java.home']
+
+def SYS_LOCAL_INCLUDE_DIR = this.properties['system.local.include.dir']
+def JNI_INCLUDE_DIR = this.properties['jni.include.dir']
+def JNI_LIB_DIR = this.properties['jni.lib.dir']
+
+println "Using system local include directory: " + SYS_LOCAL_INCLUDE_DIR
+println "Using JNI include directory: " + JNI_INCLUDE_DIR
+println "Using JNI lib directory: " + JNI_LIB_DIR
+
+model {
+    buildTypes {
+        release
+    }
+
+    components {
+        fibonacci(NativeLibrarySpec) {
+            sources {
+                c {
+                    source {
+                        srcDir "src"
+                        include "**/*.c"
+                        include "**/*.h"
+                    }
+                }
+            }
+        }
+    }
+
+    toolChains {
+        gcc(Clang) {
+            eachPlatform {
+                if (System.properties['os.name'].equals("Mac OS X")) {
+                    cCompiler.withArguments { args ->
+                        args << "-I" + SYS_LOCAL_INCLUDE_DIR
+                        args << "-I" + JNI_LIB_DIR
+                        args << "-I" + JNI_INCLUDE_DIR
+                        args << "-I" + JNI_INCLUDE_DIR + "/darwin"
+                        args << "-std=gnu11"
+                        args << "-g"
+                    }
+                } else {
+                    cCompiler.withArguments { args ->
+                        args << "-I" + SYS_LOCAL_INCLUDE_DIR
+                        args << "-I" + JNI_LIB_DIR
+                        args << "-I" + JNI_INCLUDE_DIR
+                        args << "-I" + JNI_INCLUDE_DIR + "/linux"
+                        args << "-std=gnu11"
+                        args << "-g"
+                    }
+                }
+            }
+        }
+    }
+}

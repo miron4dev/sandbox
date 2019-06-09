@@ -1,67 +1,12 @@
+plugins {
+    id "java"
+    id "application"
+}
+
 group 'com.miron4dev.sandbox'
 version '1.0-SNAPSHOT'
 
-apply plugin: 'c'
-apply plugin: 'java'
-apply plugin: 'application'
-
-println "Building on OS: " + System.properties['os.name']
-println "Using JDK: " + System.properties['java.home']
-
-def SYS_LOCAL_INCLUDE_DIR = this.properties['system.local.include.dir']
-def JNI_INCLUDE_DIR = this.properties['jni.include.dir']
-def JNI_LIB_DIR = this.properties['jni.lib.dir']
-
-println "Using system local include directory: " + SYS_LOCAL_INCLUDE_DIR
-println "Using JNI include directory: " + JNI_INCLUDE_DIR
-println "Using JNI lib directory: " + JNI_LIB_DIR
-
 application {
     mainClassName = 'com.miron4dev.sandbox.jni.App'
-    applicationDefaultJvmArgs = ["-Djava.library.path=$projectDir/build/libs/bridge/shared/"]
-}
-
-model {
-    buildTypes {
-        release
-    }
-
-    components {
-        bridge(NativeLibrarySpec) {
-            sources {
-                c {
-                    source {
-                        srcDir 'src/main/jni'
-                        include "**/*.c"
-                    }
-                }
-            }
-        }
-    }
-
-    toolChains {
-        gcc(Clang) {
-            eachPlatform {
-                if (System.properties['os.name'].equals("Mac OS X")) {
-                    cCompiler.withArguments { args ->
-                        args << "-I" + SYS_LOCAL_INCLUDE_DIR
-                        args << "-I" + JNI_LIB_DIR
-                        args << "-I" + JNI_INCLUDE_DIR
-                        args << "-I" + JNI_INCLUDE_DIR + "/darwin"
-                        args << "-std=gnu11"
-                        args << "-g"
-                    }
-                } else {
-                    cCompiler.withArguments { args ->
-                        args << "-I" + SYS_LOCAL_INCLUDE_DIR
-                        args << "-I" + JNI_LIB_DIR
-                        args << "-I" + JNI_INCLUDE_DIR
-                        args << "-I" + JNI_INCLUDE_DIR + "/linux"
-                        args << "-std=gnu11"
-                        args << "-g"
-                    }
-                }
-            }
-        }
-    }
+    applicationDefaultJvmArgs = ["-Djava.library.path=$projectDir/fibonacci/build/libs/fibonacci/shared/"]
 }
