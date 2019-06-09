@@ -1,4 +1,4 @@
-package com.miron4dev.sandbox.jni;
+package com.miron4dev.sandbox.jna;
 
 public class App {
 

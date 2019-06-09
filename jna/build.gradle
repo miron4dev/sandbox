@@ -7,7 +7,7 @@ group 'com.miron4dev.sandbox'
 version '1.0-SNAPSHOT'
 
 application {
-    mainClassName = 'com.miron4dev.sandbox.jni.App'
+    mainClassName = 'com.miron4dev.sandbox.jna.App'
     applicationDefaultJvmArgs = ["-Djava.library.path=$projectDir/fibonacci/build/libs/fibonacci/shared/"]
 }
 

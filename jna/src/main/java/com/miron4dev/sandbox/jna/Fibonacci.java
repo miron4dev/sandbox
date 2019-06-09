@@ -1,4 +1,4 @@
-package com.miron4dev.sandbox.jni;
+package com.miron4dev.sandbox.jna;
 
 import com.sun.jna.Library;
 import com.sun.jna.Native;
