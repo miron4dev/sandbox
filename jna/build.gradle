@@ -10,3 +10,11 @@ application {
     mainClassName = 'com.miron4dev.sandbox.jni.App'
     applicationDefaultJvmArgs = ["-Djava.library.path=$projectDir/fibonacci/build/libs/fibonacci/shared/"]
 }
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'net.java.dev.jna:jna:5.3.1'
+}
