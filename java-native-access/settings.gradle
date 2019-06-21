@@ -1,4 +1,0 @@
-rootProject.name = 'java-native-access'
-
-include 'fibonacci'
-
